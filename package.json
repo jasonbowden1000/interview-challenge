@@ -3,6 +3,17 @@
   "version": "0.0.1",
   "description": "Interview Project",
   "main": "index.js",
+  "scripts": {
+    "test": "./node_modules/mocha/bin/mocha test/spec spec"
+  },
   "author": "Jason Bowden <jason.bowden1000@gmail.com>",
-  "license": "MIT"
+  "license": "MIT",
+  "dependencies": {
+    "body-parser": "^1.17.2",
+    "express": "^4.15.3"
+  },
+  "devDependencies": {
+    "chai": "^4.1.0",
+    "mocha": "^3.4.2"
+  }
 }

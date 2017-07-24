@@ -96,7 +96,7 @@ describe('swapiService', () => {
 
     // Nock will throw an error if person request is made more than once
     it('when cached', () => {
-      let id = 1;
+      let id = 27;
       let times = 1;
       nockCharacter(id, times);
       swapiService.__set__('personCache', {});
@@ -106,7 +106,9 @@ describe('swapiService', () => {
         .then(() => swapiService.getPerson(id))
         .then(() => swapiService.getPerson(id))
         .then(() => {
-          expect(swapiService.__get__('personCache')).to.have.property("1");
+          expect(swapiService.__get__('personCache')).to.have.property("27");
+          expect(swapiService.__get__('personCache')).to.not.have.property("1");
+          swapiService.__set__('personCache', {});
         });
     });
   });

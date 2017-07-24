@@ -1,5 +1,5 @@
 window.onload = () => {
-  let chartContainer = document.getElementById('chartContainer');
+  let chartContainer = document.getElementById("chartContainer");
   let dataPoints = JSON.parse(chartContainer.dataset.scrawl);
 
   var chart = new CanvasJS.Chart("chartContainer", {

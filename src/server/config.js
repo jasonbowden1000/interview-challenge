@@ -3,8 +3,24 @@
 const config = {
   SWAPI: {
     API: 'http://swapi.co/api',
-    FILMS: `/films`,
+    FILMS: `/films/`,
     PEOPLE: `/people/`
+  },
+  SCHEMAS: {
+    films: {
+      count: '',
+      results: [{
+        title: "",
+        director: "",
+        crawl_length: "",
+        characters: [{
+          name: ""
+        }]
+      }]
+    },
+    person: {
+      name: ""
+    }
   }
 };
 

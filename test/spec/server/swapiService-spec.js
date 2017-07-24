@@ -13,6 +13,16 @@ function nockFilms() {
     .reply(200, MOCKS.FILMS);
 }
 
+function nockCharacter(id) {
+  nock(SWAPI.API)
+    .get(`${SWAPI.PEOPLE}${id}`)
+    .reply(200, MOCKS.PERSON);
+}
+
+function nockCharacters(ids) {
+  ids.forEach(id => nockCharacter(id));
+}
+
 describe('swapiService', () => {
   describe('can retrieve all films', () => {
     beforeEach(() => {
@@ -35,16 +45,24 @@ describe('swapiService', () => {
       });
     });
 
-    xit('with three main characters', () => {
-      /*
+    it('with three main characters', () => {
+      nockCharacters([1,2,3]);
+
       return swapiService.getFilms().then(films => {
         expect(films.results).to.all.have.property('characters');
+
+        films.results.each(film => {
+          expect(film.characters).to.have.lengthOf(3);
+          expect(film.characters).to.all.have.property('name');
+          // expect them all not to have other shit
+        });
       });
-      */
     });
 
-    xit('with opening crawl lengths', () => {
-
+    it('with opening crawl lengths', () => {
+      return swapiService.getFilms().then(films => {
+        expect(films.results).to.all.have.property('crawl_length');
+      });
     });
 
     it('without omissions', () => {
@@ -57,12 +75,23 @@ describe('swapiService', () => {
       return swapiService.getFilms().then(films => {
         expect(films).not.to.have.property('next');
         expect(films.results).to.all.not.have.property('producer');
+        expect(films.results).not.to.have.property('opening_crawl');
       });
-
     });
   });
 
-  xit('can retrieve a character', () => {
+  describe('can retrieve a character', () => {
+    it('when given an id', () => {
+      nockCharacter(MOCKS.PERSON_ID);
 
+      return swapiService.getPerson(MOCKS.PERSON_ID).then(person => {
+        expect(person.name).to.equal(MOCKS.PERSON.name);
+        expect(person).not.to.have.property('homeworld');
+      });
+    });
+
+    xit('when cached', () => {
+
+    });
   });
 });

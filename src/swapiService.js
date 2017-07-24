@@ -1,20 +1,30 @@
-const request = require('request-promise');
-const config = require('./config');
+const request = require("request-promise");
+const config = require("./config");
 const SWAPI = config.SWAPI;
 const WHITELISTS = config.WHITELISTS;
-const util = require('./util');
+const util = require("./util");
 
 let personCache = {};
+let filmCache = {};
 
 async function getFilms() {
-  let films = await request({ url: `${SWAPI.API}${SWAPI.FILMS}`, json: true });
+  let films;
 
-  for (let film of films.results) {
-    film.people = await getCharacters(film);
-    film.crawl_length = getCrawlLength(film);
+  if (util.isEmpty(filmCache)) {
+    films = filmCache;
+  } else {
+    films = await request({ url: `${SWAPI.API}${SWAPI.FILMS}`, json: true });
+
+    for (let film of films.results) {
+      film.people = await getCharacters(film);
+      film.crawl_length = getCrawlLength(film);
+    }
+
+    films = util.whiteList(films, WHITELISTS.films);
+    filmCache = films;
   }
 
-  return util.whiteList(films, WHITELISTS.films);
+  return films;
 }
 
 async function getPerson(id) {
@@ -31,10 +41,10 @@ async function getPerson(id) {
   return person;
 }
 
-async function getCharacters(film) {
+function getCharacters(film) {
   let urls = film.characters.slice(0, 3);
 
-  return Promise.all(urls.map(async (character) => {
+  return Promise.all(urls.map(character => {
     let id = getCharacterId(character);
     return getPerson(id);
   }));
@@ -48,7 +58,7 @@ function getCharacterId(character) {
 }
 
 function getCrawlLength(film) {
-  return film.opening_crawl.replace(/(\r\n|\n\r)/gm, "").length;
+  return film.opening_crawl.replace(`${config.REGEX.LINE_BREAK}gm`, "").length;
 }
 
 module.exports = { getFilms, getPerson };

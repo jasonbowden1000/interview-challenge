@@ -1,0 +1,5 @@
+mixin card(film)
+  p.card-text #{film.title}
+  p.card-text #{film.director}
+  each person in film.people
+    p.card-text #{person.name}

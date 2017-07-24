@@ -1,0 +1,47 @@
+doctype html
+html(lang='en')
+  head
+    title Uptake Code Sample
+    link(rel='stylesheet', href='/assets/style.css')
+    script(src='https://canvasjs.com/assets/script/canvasjs.min.js')
+    script(src='/assets/main.js')
+  body
+    include mixins.pug
+    div.container
+      div.row
+        div.col-12.col-lg-4
+          div.row.info-border.light-border
+            div.col-12
+              div.row
+                div.col-12
+                  h2 Favorite Character
+              div.row
+                div.col-12
+                  p #{favoriteCharacter.name}
+          div.row.info-border.light-border
+            div.col-12
+              div.row
+                div.col-12
+                  h2 Least Favorite Character
+                div.col-12
+                  p #{leastFavoriteCharacter.name}
+          div.row.info-border.chart-container.light-border
+            div.col-12
+              div.row
+                div.col-12
+                  h2 How long are those opening crawls?
+              div.row
+                div.col-12
+                  div#chartContainer(data-scrawl=`${openingScrawlLengths}`)
+        div.col-12.col-lg-8
+          div.row
+            each card in cards
+              div.col-12.col-lg-4
+                div.row.card
+                  div.col-12.light-border
+                    div.row
+                      div.col-6
+                        +card(card[0])
+                      div.col-6
+                        if card[1]
+                          +card(card[1])

@@ -1,43 +1,54 @@
 const request = require('request-promise');
 const config = require('./config');
 const SWAPI = config.SWAPI;
-const SCHEMAS = config.SCHEMAS;
+const WHITELISTS = config.WHITELISTS;
 const util = require('./util');
 
 let personCache = {};
 
-function getFilms() {
-  return getFilmsFromSwapi()
-    .then(addCrawlLengths)
-    .then(films => util.whiteList(films, SCHEMAS.films));
+async function getFilms() {
+  let films = await request({ url: `${SWAPI.API}${SWAPI.FILMS}`, json: true });
+
+  for (let film of films.results) {
+    film.people = await getCharacters(film);
+    film.crawl_length = getCrawlLength(film);
+  }
+
+  return util.whiteList(films, WHITELISTS.films);
 }
 
-function getPerson(id) {
-  return getPersonFromSwapi(id)
-    .then(person => util.whiteList(person, SCHEMAS.person));
+async function getPerson(id) {
+  let person;
+
+  if (personCache[id]) {
+    person = Promise.resolve(personCache[id]);
+  } else {
+    person = await request({ url: `${SWAPI.API}${SWAPI.PEOPLE}${id}`, json: true });
+    person = util.whiteList(person, WHITELISTS.person);
+    personCache[id] = person;
+  }
+
+  return person;
 }
 
-function getFilmsFromSwapi() {
-  return request({
-    url: `${SWAPI.API}${SWAPI.FILMS}`,
-    json: true
-  });
+async function getCharacters(film) {
+  let urls = film.characters.slice(0, 3);
+
+  return Promise.all(urls.map(async (character) => {
+    let id = getCharacterId(character);
+    return getPerson(id);
+  }));
 }
 
-function addCrawlLengths(films) {
-  films.results = films.results.map(film => {
-    film.crawl_length = film.opening_crawl.replace(/(\r\n|\n\r)/gm, "").length;
-    return film;
-  });
-
-  return films;
+function getCharacterId(character) {
+  return character
+    .split("/")
+    .filter(el => el !== '')
+    .pop();
 }
 
-function getPersonFromSwapi(id) {
-  return request({
-    url: `${SWAPI.API}${SWAPI.PEOPLE}${id}`,
-    json: true
-  })
+function getCrawlLength(film) {
+  return film.opening_crawl.replace(/(\r\n|\n\r)/gm, "").length;
 }
 
 module.exports = { getFilms, getPerson };

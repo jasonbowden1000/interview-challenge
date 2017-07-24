@@ -6,14 +6,14 @@ const config = {
     FILMS: `/films/`,
     PEOPLE: `/people/`
   },
-  SCHEMAS: {
+  WHITELISTS: {
     films: {
       count: '',
       results: [{
         title: "",
         director: "",
         crawl_length: "",
-        characters: [{
+        people: [{
           name: ""
         }]
       }]

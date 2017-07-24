@@ -50,12 +50,12 @@ describe('swapiService', () => {
 
     it('with three main characters', () => {
       return swapiService.getFilms().then(films => {
-        expect(films.results).to.all.have.property('characters');
+        expect(films.results).to.all.have.property('people');
 
         films.results.forEach(film => {
-          expect(film.characters).to.have.lengthOf(3);
-          expect(film.characters).to.all.have.property('name');
-          expect(film.characters).to.all.not.have.property('homeworld');
+          expect(film.people).to.have.lengthOf(3);
+          expect(film.people).to.all.have.property('name');
+          expect(film.people).to.all.not.have.property('homeworld');
         });
       });
     });
@@ -99,6 +99,7 @@ describe('swapiService', () => {
       let id = 1;
       let times = 1;
       nockCharacter(id, times);
+      swapiService.__set__('personCache', {});
 
       return Promise.resolve()
         .then(() => swapiService.getPerson(id))

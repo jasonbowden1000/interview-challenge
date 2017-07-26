@@ -24,10 +24,6 @@ describe("pageDataBuilder", () => {
         expect(pageDataObject["favChar"].name).to.equal(MOCKS.PEOPLE[pageDefinition["favChar"]["id"]]);
       });
     });
-
-    xit("should throw an error when an invalid id is given", () => {
-
-    });
   });
 
   describe("when the page definition includes cards", () => {

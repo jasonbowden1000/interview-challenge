@@ -11,6 +11,10 @@ app.use(express.static(config.PATHS.CLIENT));
 app.set('view engine', 'pug');
 app.set('views', config.PATHS.LAYOUT);
 
+
+// TODO: add helmet
+
+// This should come from some sort of CMS
 const pageDefinition = {
   favoriteCharacter: {
     type: "person",
@@ -29,9 +33,14 @@ const pageDefinition = {
 };
 
 app.get('/', async (req, res) => {
-  let pageData = await pageDataBuilder.getData(pageDefinition);
-  console.log('what is in the page data?');
-  console.log(pageData);
+  let pageData = {};
+  try {
+    pageData = await pageDataBuilder.getData(pageDefinition);
+  } catch(error) {
+    // log error
+    // reroute, display appropriate error message, etc.
+  }
+
   res.render('index', pageData);
 });
 

@@ -9,7 +9,9 @@ const modules = {
 
 async function getData(pageDefinition) {
   let pageData = {};
+
   for (let label in pageDefinition) {
+    // TODO: I'm not sure I like this
     pageData[label] = await modules[pageDefinition[label].type](label, pageDefinition);
   }
 

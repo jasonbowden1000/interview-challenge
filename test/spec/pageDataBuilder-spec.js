@@ -11,7 +11,7 @@ describe("pageDataBuilder", () => {
   });
 
   describe("when the definition includes a person\'s valid id", () => {
-    it("should include the person\'s data under the correct label", () => {
+    it("includes the person\'s data under the correct label", () => {
       const pageDefinition = {
         favChar: {
           type: "person",
@@ -27,7 +27,7 @@ describe("pageDataBuilder", () => {
   });
 
   describe("when the page definition includes cards", () => {
-    it("should include them in pairs", () => {
+    it("includes them in pairs", () => {
       const pageDefinition = {
         cards: {
           type: "cards"
@@ -44,7 +44,7 @@ describe("pageDataBuilder", () => {
   });
 
   describe("when the page definition includes a table", () => {
-    it("should add four films", () => {
+    it("adds four films", () => {
       const pageDefinition = {
         scrawl: {
           type: "table"

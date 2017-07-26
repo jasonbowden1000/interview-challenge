@@ -26,7 +26,7 @@ function nockCharacters(ids) {
 }
 
 describe("swapiService", () => {
-  describe("can retrieve all films", () => {
+  describe("retrieves all films", () => {
     beforeEach(() => {
       nockFilms();
       nockCharacters([1,2,3]);
@@ -83,7 +83,7 @@ describe("swapiService", () => {
     after(() => nock.cleanAll());
   });
 
-  describe("can retrieve a character", () => {
+  describe("retrieves a character", () => {
     it("when given an id", () => {
       let id = 1;
       nockCharacter(id, 1);

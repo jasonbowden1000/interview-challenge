@@ -1,5 +1,5 @@
 let util = require("./util");
-let swapiService = require("./swapiService");
+let swapiService = require("./swapi");
 
 const modules = {
   person: getPerson,

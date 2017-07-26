@@ -2,9 +2,9 @@ const express = require('express');
 const bodyParser = require('body-parser');
 const helmet = require('helmet');
 const app = express();
-const swapiService = require('./swapiService');
-const pageDataBuilder = require('./pageDataBuilder');
-const config = require('./config');
+const swapiService = require('./services/swapi');
+const pageDataBuilder = require('./services/pageDataBuilder');
+const config = require('./services/config');
 
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(bodyParser.json());

@@ -1,6 +1,6 @@
 const chai = require("chai");
 const rewire = require("rewire");
-const pageDataBuilder = rewire("./../../src/server/pageDataBuilder");
+const pageDataBuilder = rewire("./../../src/server/services/pageDataBuilder");
 const MOCKS = require("./../mocks/swapi");
 const expect = chai.expect;
 chai.use(require("chai-things"));
@@ -21,7 +21,7 @@ describe("pageDataBuilder", () => {
 
       return pageDataBuilder.getData(pageDefinition).then(pageDataObject => {
         expect(pageDataObject).to.have.property("favChar");
-        expect(pageDataObject["favChar"].name).to.equal(MOCKS.PEOPLE[pageDefinition["favChar"]["id"]]);
+        expect(pageDataObject.favChar.name).to.equal(MOCKS.PEOPLE[pageDefinition.favChar.id]);
       });
     });
   });

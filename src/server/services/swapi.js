@@ -31,7 +31,7 @@ async function getPerson(id) {
   let person;
 
   if (personCache[id]) {
-    person = Promise.resolve(personCache[id]);
+    person = personCache[id];
   } else {
     person = await request({ url: `${SWAPI.API}${SWAPI.PEOPLE}${id}`, json: true });
     person = util.whiteList(person, WHITELISTS.person);

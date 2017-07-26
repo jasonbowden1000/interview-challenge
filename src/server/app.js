@@ -2,7 +2,6 @@ const express = require('express');
 const bodyParser = require('body-parser');
 const helmet = require('helmet');
 const app = express();
-const swapiService = require('./services/swapi');
 const pageDataBuilder = require('./services/pageDataBuilder');
 const config = require('./services/config');
 

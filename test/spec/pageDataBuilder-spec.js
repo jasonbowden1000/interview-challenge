@@ -1,6 +1,6 @@
 const chai = require("chai");
 const rewire = require("rewire");
-const pageDataBuilder = rewire("./../../src/pageDataBuilder");
+const pageDataBuilder = rewire("./../../src/server/pageDataBuilder");
 const MOCKS = require("./../mocks/swapi");
 const expect = chai.expect;
 chai.use(require("chai-things"));

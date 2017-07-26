@@ -1,8 +1,8 @@
 const nock = require("nock");
 const chai = require("chai");
 const rewire = require("rewire");
-const swapiService = rewire("./../../src/swapiService");
-const SWAPI = require("./../../src/config").SWAPI;
+const swapiService = rewire("./../../src/server/swapiService");
+const SWAPI = require("./../../src/server/config").SWAPI;
 const MOCKS = require("./../mocks/swapi");
 const expect = chai.expect;
 

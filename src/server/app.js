@@ -1,5 +1,6 @@
 const express = require('express');
 const bodyParser = require('body-parser');
+const helmet = require('helmet');
 const app = express();
 const swapiService = require('./swapiService');
 const pageDataBuilder = require('./pageDataBuilder');
@@ -8,11 +9,9 @@ const config = require('./config');
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(bodyParser.json());
 app.use(express.static(config.PATHS.CLIENT));
+app.use(helmet());
 app.set('view engine', 'pug');
 app.set('views', config.PATHS.LAYOUT);
-
-
-// TODO: add helmet
 
 // This should come from some sort of CMS
 const pageDefinition = {

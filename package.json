@@ -4,7 +4,7 @@
   "description": "Interview Project",
   "main": "index.js",
   "scripts": {
-    "start": "node src",
+    "start": "node src/server",
     "test": "./node_modules/mocha/bin/mocha test/spec/* spec"
   },
   "author": "Jason Bowden <jason.bowden1000@gmail.com>",
@@ -13,6 +13,7 @@
     "body-parser": "^1.17.2",
     "chai-things": "^0.2.0",
     "express": "^4.15.3",
+    "helmet": "^3.8.0",
     "pug": "^2.0.0-rc.2",
     "request": "^2.81.0",
     "request-promise": "^4.2.1"

@@ -10,8 +10,8 @@ describe("pageDataBuilder", () => {
     pageDataBuilder.__set__("swapiService", MOCKS.SERVICE);
   });
 
-  describe("when the definition includes a person\'s valid id", () => {
-    it("includes the person\'s data under the correct label", () => {
+  describe("when the definition includes a person's valid id", () => {
+    it("includes the person's data under the correct label", () => {
       const pageDefinition = {
         favChar: {
           type: "person",
